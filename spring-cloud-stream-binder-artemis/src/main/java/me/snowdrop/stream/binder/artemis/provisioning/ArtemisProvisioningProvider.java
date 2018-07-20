@@ -145,7 +145,7 @@ public class ArtemisProvisioningProvider implements
     }
 
     private void createQueue(String rawAddress, String rawName) {
-        SimpleString address = toSimpleString(decorateJmsAddress(rawAddress));
+        SimpleString address = toSimpleString(rawAddress);
         SimpleString name = toSimpleString(rawName);
 
         logger.fine(String.format("Creating queue='%s' with address='%s'", name, address));
@@ -166,14 +166,6 @@ public class ArtemisProvisioningProvider implements
 
         return clientSessionFactory.createSession(username, password, true, false, false,
                 serverLocator.isPreAcknowledge(), serverLocator.getAckBatchSize());
-    }
-
-    private String decorateJmsAddress(String address) {
-        if (address.toLowerCase().startsWith("jms.topic")) {
-            return address;
-        }
-
-        return String.format("jms.topic.%s", address);
     }
 
 }

@@ -78,9 +78,9 @@ public class ArtemisProvisioningProviderTest {
         assertThat(destination).isInstanceOf(ArtemisProducerDestination.class);
         assertThat(destination.getName()).isEqualTo(address);
 
-        SimpleString actualAddress = toSimpleString("jms.topic." + address);
+        SimpleString actualAddress = toSimpleString(address);
         SimpleString actualAddressQueueName = toSimpleString(address);
-        // verify queue with address=jms.topic.test-address and name=test-address
+        // verify queue with address=test-address and name=test-address
         verify(mockClientSession).createSharedQueue(actualAddress, actualAddressQueueName, true);
     }
 
@@ -93,17 +93,17 @@ public class ArtemisProvisioningProviderTest {
         assertThat(destination).isInstanceOf(ArtemisProducerDestination.class);
         assertThat(destination.getName()).isEqualTo(address);
 
-        SimpleString actualAddress = toSimpleString("jms.topic." + address);
+        SimpleString actualAddress = toSimpleString(address);
         SimpleString actualAddressQueueName = toSimpleString(address);
-        // verify queue with address=jms.topic.test-address and name=test-address
+        // verify queue with address=test-address and name=test-address
         verify(mockClientSession).createSharedQueue(actualAddress, actualAddressQueueName, true);
 
         SimpleString actualGroup0QueueName = toSimpleString(getQueueName(address, groups[0]));
-        // verify queue with address=jms.topic.test-address and name=test-address-test-group-0
+        // verify queue with address=test-address and name=test-address-test-group-0
         verify(mockClientSession).createSharedQueue(actualAddress, actualGroup0QueueName, true);
 
         SimpleString actualGroup1QueueName = toSimpleString(getQueueName(address, groups[1]));
-        // verify queue with address=jms.topic.test-address and name=test-address-test-group-1
+        // verify queue with address=test-address and name=test-address-test-group-1
         verify(mockClientSession).createSharedQueue(actualAddress, actualGroup1QueueName, true);
     }
 
@@ -121,14 +121,14 @@ public class ArtemisProvisioningProviderTest {
         assertThat(destination.getNameForPartition(0)).isEqualTo(partitionedAddress0);
         assertThat(destination.getNameForPartition(1)).isEqualTo(partitionedAddress1);
 
-        SimpleString actualAddress0 = toSimpleString("jms.topic." + partitionedAddress0);
+        SimpleString actualAddress0 = toSimpleString(partitionedAddress0);
         SimpleString actualAddress0QueueName = toSimpleString(partitionedAddress0);
-        // verify queue with address=jms.topic.test-address-0 and name=test-address-0
+        // verify queue with address=test-address-0 and name=test-address-0
         verify(mockClientSession).createSharedQueue(actualAddress0, actualAddress0QueueName, true);
 
-        SimpleString actualAddress1 = toSimpleString("jms.topic." + partitionedAddress1);
+        SimpleString actualAddress1 = toSimpleString(partitionedAddress1);
         SimpleString actualAddress1QueueName = toSimpleString(partitionedAddress1);
-        // verify queue with address=jms.topic.test-address-1 and name=test-address-1
+        // verify queue with address=test-address-1 and name=test-address-1
         verify(mockClientSession).createSharedQueue(actualAddress1, actualAddress1QueueName, true);
     }
 
@@ -147,36 +147,36 @@ public class ArtemisProvisioningProviderTest {
         assertThat(destination.getNameForPartition(0)).isEqualTo(partitionedAddress0);
         assertThat(destination.getNameForPartition(1)).isEqualTo(partitionedAddress1);
 
-        SimpleString actualAddress0 = toSimpleString("jms.topic." + partitionedAddress0);
+        SimpleString actualAddress0 = toSimpleString(partitionedAddress0);
         SimpleString actualAddress0QueueName = toSimpleString(partitionedAddress0);
-        // verify queue with address=jms.topic.test-address-0 and name=test-address-0
+        // verify queue with address=test-address-0 and name=test-address-0
         verify(mockClientSession).createSharedQueue(actualAddress0, actualAddress0QueueName, true);
 
-        SimpleString actualAddress1 = toSimpleString("jms.topic." + partitionedAddress1);
+        SimpleString actualAddress1 = toSimpleString(partitionedAddress1);
         SimpleString actualAddress1QueueName = toSimpleString(partitionedAddress1);
-        // verify queue with address=jms.topic.test-address-1 and name=test-address-1
+        // verify queue with address=test-address-1 and name=test-address-1
         verify(mockClientSession).createSharedQueue(actualAddress1, actualAddress1QueueName, true);
 
         SimpleString actualGroup00QueueName = toSimpleString(getQueueName(partitionedAddress0, groups[0]));
-        // verify queue with address=jms.topic.test-address-0 and name=test-address-test-group-0
+        // verify queue with address=test-address-0 and name=test-address-test-group-0
         verify(mockClientSession).createSharedQueue(actualAddress0, actualGroup00QueueName, true);
 
         SimpleString actualGroup01QueueName = toSimpleString(getQueueName(partitionedAddress0, groups[1]));
-        // verify queue with address=jms.topic.test-address-0 and name=test-address-test-group-1
+        // verify queue with address=test-address-0 and name=test-address-test-group-1
         verify(mockClientSession).createSharedQueue(actualAddress0, actualGroup01QueueName, true);
 
         SimpleString actualGroup10QueueName = toSimpleString(getQueueName(partitionedAddress1, groups[0]));
-        // verify queue with address=jms.topic.test-address-1 and name=test-address-test-group-0
+        // verify queue with address=test-address-1 and name=test-address-test-group-0
         verify(mockClientSession).createSharedQueue(actualAddress1, actualGroup10QueueName, true);
 
         SimpleString actualGroup11QueueName = toSimpleString(getQueueName(partitionedAddress1, groups[1]));
-        // verify queue with address=jms.topic.test-address-1 and name=test-address-test-group-1
+        // verify queue with address=test-address-1 and name=test-address-test-group-1
         verify(mockClientSession).createSharedQueue(actualAddress1, actualGroup11QueueName, true);
     }
 
     @Test
     public void shouldFailToCreateAddressForProducer() throws ActiveMQException {
-        SimpleString actualAddress = toSimpleString("jms.topic." + address);
+        SimpleString actualAddress = toSimpleString(address);
         SimpleString actualAddressQueueName = toSimpleString(address);
 
         doThrow(new ActiveMQException("Test exception")).when(mockClientSession)
@@ -195,7 +195,7 @@ public class ArtemisProvisioningProviderTest {
     public void shouldFailToCreateQueueForProducer() throws ActiveMQException {
         when(mockProducerProperties.getRequiredGroups()).thenReturn(groups);
 
-        SimpleString actualAddress = toSimpleString("jms.topic." + address);
+        SimpleString actualAddress = toSimpleString(address);
         SimpleString actualGroupQueueName = toSimpleString(getQueueName(address, groups[0]));
         doThrow(new ActiveMQException("Test exception")).when(mockClientSession)
                 .createSharedQueue(actualAddress, actualGroupQueueName, true);
@@ -217,7 +217,7 @@ public class ArtemisProvisioningProviderTest {
         assertThat(destination).isInstanceOf(ArtemisConsumerDestination.class);
         assertThat(destination.getName()).isEqualTo(address);
 
-        SimpleString actualAddress = toSimpleString("jms.topic." + address);
+        SimpleString actualAddress = toSimpleString(address);
         SimpleString actualAddressQueueName = toSimpleString(address);
         verify(mockClientSession).createSharedQueue(actualAddress, actualAddressQueueName, true);
     }
@@ -235,14 +235,14 @@ public class ArtemisProvisioningProviderTest {
         assertThat(destination).isInstanceOf(ArtemisConsumerDestination.class);
         assertThat(destination.getName()).isEqualTo(partitionedAddress);
 
-        SimpleString actualAddress = toSimpleString("jms.topic." + partitionedAddress);
+        SimpleString actualAddress = toSimpleString(partitionedAddress);
         SimpleString actualAddressQueueName = toSimpleString(partitionedAddress);
         verify(mockClientSession).createSharedQueue(actualAddress, actualAddressQueueName, true);
     }
 
     @Test
     public void shouldFailToCreateAddressForConsumer() throws ActiveMQException {
-        SimpleString actualAddress = toSimpleString("jms.topic." + address);
+        SimpleString actualAddress = toSimpleString(address);
         SimpleString actualAddressQueueName = toSimpleString(address);
         doThrow(new ActiveMQException("Test exception")).when(mockClientSession)
                 .createSharedQueue(actualAddress, actualAddressQueueName, true);

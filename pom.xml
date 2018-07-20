@@ -58,6 +58,7 @@
     <spring-cloud-stream-dependencies.version>Ditmars.SR3</spring-cloud-stream-dependencies.version>
     <spring-integration-java-dsl.version>1.2.3.RELEASE</spring-integration-java-dsl.version>
     <spring-integration-jms.version>4.3.15.RELEASE</spring-integration-jms.version>
+    <amq.version>2.6.1.amq-720004-redhat-1</amq.version>
   </properties>
 
   <prerequisites>
@@ -86,6 +87,32 @@
 
   <dependencyManagement>
     <dependencies>
+    <!-- Artemis (AMQ) -->    
+      <dependency>
+          <groupId>org.apache.activemq</groupId>
+          <artifactId>artemis-commons</artifactId>
+          <version>${amq.version}</version><!--$NO-MVN-MAN-VER$-->
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.activemq</groupId>
+          <artifactId>artemis-core-client</artifactId>
+          <version>${amq.version}</version><!--$NO-MVN-MAN-VER$-->
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.activemq</groupId>
+          <artifactId>artemis-selector</artifactId>
+          <version>${amq.version}</version><!--$NO-MVN-MAN-VER$-->
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.activemq</groupId>
+          <artifactId>artemis-jms-client</artifactId>
+          <version>${amq.version}</version><!--$NO-MVN-MAN-VER$-->
+      </dependency>
+
+
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-stream-dependencies</artifactId>
